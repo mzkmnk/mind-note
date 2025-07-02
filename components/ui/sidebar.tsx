@@ -446,10 +446,7 @@ const SidebarGroupLabel = React.forwardRef<
 
   return (
     <Comp
-      // Note: Type assertion needed due to React 19 and Radix UI Slot compatibility
-      // This will be resolved when shadcn/ui fully supports React 19
-      // See: https://github.com/radix-ui/primitives/issues/2398
-      ref={ref as React.Ref<HTMLElement>}
+      ref={ref as any}
       data-sidebar="group-label"
       className={cn(
         "flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
