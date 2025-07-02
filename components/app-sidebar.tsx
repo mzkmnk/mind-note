@@ -33,31 +33,32 @@ import {
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import Link from "next/link"
 
 const fileTree = [
   {
     name: "Welcome",
     icon: BookOpen,
     children: [
-      { name: "はじめに", icon: FileText },
-      { name: "クイックスタート", icon: FileText },
+      { name: "はじめに", icon: FileText, id: "welcome" },
+      { name: "クイックスタート", icon: FileText, id: "quickstart" },
     ],
   },
   {
     name: "メモ",
     icon: FolderOpen,
     children: [
-      { name: "アイデア", icon: FileText },
-      { name: "TODOリスト", icon: FileText },
-      { name: "議事録", icon: FileText },
+      { name: "アイデア", icon: FileText, id: "project-ideas" },
+      { name: "TODOリスト", icon: FileText, id: "todo-list" },
+      { name: "議事録", icon: FileText, id: "meeting-notes" },
     ],
   },
   {
     name: "プロジェクト",
     icon: FolderOpen,
     children: [
-      { name: "Webアプリ開発", icon: FileText },
-      { name: "ブログ記事", icon: FileText },
+      { name: "Webアプリ開発", icon: FileText, id: "web-app-dev" },
+      { name: "ブログ記事", icon: FileText, id: "blog-article" },
     ],
   },
 ]
@@ -152,9 +153,11 @@ export function AppSidebar() {
                     <SidebarMenuSub>
                       {folder.children.map((file) => (
                         <SidebarMenuSubItem key={file.name}>
-                          <SidebarMenuSubButton>
-                            <file.icon className="h-4 w-4" />
-                            <span>{file.name}</span>
+                          <SidebarMenuSubButton asChild>
+                            <Link href={`/notes/${file.id}`}>
+                              <file.icon className="h-4 w-4" />
+                              <span>{file.name}</span>
+                            </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}
