@@ -514,6 +514,252 @@ export type WorkspaceMember = {
    - ローディング状態改善
    - エラーハンドリング強化
 
+## 開発方針・プロセス
+
+### 1. テスト駆動開発（TDD）の採用
+
+本プロジェクトでは、**テスト駆動開発（Test-Driven Development, TDD）** を基本的な開発手法として採用します。TDDは「動作するきれいなコード」を目標とし、高品質なソフトウェアの継続的な開発を可能にします。
+
+#### TDDの基本サイクル（Red-Green-Refactor）
+
+```
+1. Red（失敗するテストを書く）
+   ↓
+2. Green（テストを通すための最小限のコードを書く）
+   ↓
+3. Refactor（動作を維持しながらコードを改善する）
+   ↓
+   繰り返し
+```
+
+#### 1.1 TDD実践のメリット
+
+- **即座のフィードバック**: 変更による影響を素早く検知
+- **リファクタリングの安全性**: テストがあることで安心してコード改善が可能
+- **設計の改善**: テストしやすいコードは自然と良い設計になる
+- **ドキュメント効果**: テストコードが仕様書の役割を果たす
+- **デバッグ時間の短縮**: 問題の早期発見により修正コストを削減
+- **開発速度の向上**: 長期的には開発とメンテナンスが効率化
+
+#### 1.2 プロジェクトでのTDD適用指針
+
+##### フロントエンド（Next.js + TypeScript）
+```typescript
+// Jest + React Testing Library を使用
+
+// 例: コンポーネントのテスト
+import { render, screen } from '@testing-library/react';
+import { NoteEditor } from '@/components/editor/NoteEditor';
+
+describe('NoteEditor', () => {
+  it('should render empty editor initially', () => {
+    render(<NoteEditor />);
+    expect(screen.getByRole('textbox')).toHaveValue('');
+  });
+
+  it('should update content when typing', async () => {
+    const user = userEvent.setup();
+    render(<NoteEditor />);
+    
+    const editor = screen.getByRole('textbox');
+    await user.type(editor, '# Hello World');
+    
+    expect(editor).toHaveValue('# Hello World');
+  });
+});
+```
+
+##### バックエンド（Hono + Drizzle ORM）
+```typescript
+// Vitest を使用
+
+// 例: API エンドポイントのテスト
+import { testClient } from 'hono/testing';
+import { app } from '@/api/app';
+
+describe('Notes API', () => {
+  it('should create new note', async () => {
+    const res = await testClient(app).notes.$post({
+      json: {
+        title: 'Test Note',
+        content: 'This is a test note',
+      },
+    });
+
+    expect(res.status).toBe(201);
+    const note = await res.json();
+    expect(note.title).toBe('Test Note');
+  });
+});
+```
+
+#### 1.3 テストカテゴリとピラミッド構造
+
+本プロジェクトでは以下のテスト戦略を採用します：
+
+```
+        /\
+       /  \
+      / E2E \     ← 少数（重要なユーザーフロー）
+     /______\
+    /        \
+   /Integration\ ← 中程度（API、コンポーネント間）
+  /__________\
+ /            \
+/   Unit Tests  \ ← 多数（関数、メソッド、コンポーネント）
+/________________\
+```
+
+##### ユニットテスト（最多）
+- **対象**: 個別の関数、メソッド、コンポーネント
+- **ツール**: Jest, Vitest, React Testing Library
+- **実行速度**: 高速（< 1秒）
+- **カバレッジ**: 80%以上を目標
+
+##### インテグレーションテスト（中程度）
+- **対象**: APIエンドポイント、データベース連携、コンポーネント間
+- **ツール**: Supertest, MSW (Mock Service Worker)
+- **実行速度**: 中程度（< 10秒）
+
+##### E2Eテスト（少数）
+- **対象**: 重要なユーザーフロー（ログイン、ノート作成、共有など）
+- **ツール**: Playwright
+- **実行速度**: 低速（分単位）
+
+#### 1.4 TDD実装のガイドライン
+
+##### テスト作成の原則
+1. **FIRST原則**
+   - **F**ast: 高速に実行される
+   - **I**ndependent: 他のテストに依存しない
+   - **R**epeatable: 繰り返し実行可能
+   - **S**elf-Validating: 自己検証する（Pass/Failが明確）
+   - **T**imely: 適切なタイミングで作成
+
+2. **テスト名の命名規則**
+```typescript
+// Good: 具体的で理解しやすい
+it('should return 401 when user is not authenticated', () => {});
+it('should create wiki link when typing [[note-title]]', () => {});
+
+// Bad: 抽象的で何をテストしているか不明
+it('should work correctly', () => {});
+it('test login', () => {});
+```
+
+3. **Given-When-Then パターン**
+```typescript
+describe('Note creation', () => {
+  it('should save note with generated slug', async () => {
+    // Given: 前提条件
+    const userData = { id: 'user-1', email: 'test@example.com' };
+    
+    // When: 実行する動作
+    const note = await createNote({
+      title: 'My First Note',
+      content: 'Hello World',
+      userId: userData.id,
+    });
+    
+    // Then: 期待する結果
+    expect(note.slug).toBe('my-first-note');
+    expect(note.title).toBe('My First Note');
+  });
+});
+```
+
+#### 1.5 TDD導入戦略
+
+##### フェーズ1: 基盤構築
+- [ ] テスト環境のセットアップ（Jest, Vitest, React Testing Library）
+- [ ] CI/CDパイプラインにテスト実行を組み込み
+- [ ] チームでのTDD基本トレーニング
+
+##### フェーズ2: 段階的適用
+- [ ] 新機能開発時に必ずTDDで実装
+- [ ] 既存コードのリファクタリング時にテスト追加
+- [ ] コードレビューでテストの品質チェック
+
+##### フェーズ3: 文化醸成
+- [ ] TDD実践の成功事例共有
+- [ ] テストカバレッジの可視化
+- [ ] 継続的な改善とベストプラクティス更新
+
+#### 1.6 テスト関連パッケージ
+
+```json
+{
+  "devDependencies": {
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/user-event": "^14.5.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "vitest": "^0.34.6",
+    "@vitest/ui": "^0.34.6",
+    "playwright": "^1.39.0",
+    "@playwright/test": "^1.39.0",
+    "msw": "^2.0.0",
+    "supertest": "^6.3.3",
+    "@types/supertest": "^2.0.15"
+  }
+}
+```
+
+#### 1.7 テスト実行設定
+
+##### package.json スクリプト
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:api": "vitest run api",
+    "test:api:watch": "vitest api",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  }
+}
+```
+
+##### CI/CD での自動テスト
+```yaml
+# .github/workflows/test.yml
+name: Tests
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - run: npm ci
+      - run: npm run test:coverage
+      - run: npm run test:api
+      - run: npm run test:e2e
+```
+
+### 2. コード品質管理
+
+#### 2.1 静的解析ツール
+- **ESLint**: コーディング規約の自動チェック
+- **Prettier**: コードフォーマットの統一
+- **TypeScript**: 型安全性の確保
+
+#### 2.2 コードレビュー指針
+- すべてのプルリクエストで必須
+- テストコードの品質も重点的にレビュー
+- TDDサイクルに従った開発プロセスの確認
+
+#### 2.3 継続的インテグレーション
+- プッシュ時の自動テスト実行
+- テストカバレッジの監視
+- 品質ゲートの設定
+
 ## 技術的考慮事項
 
 ### 1. パフォーマンス
