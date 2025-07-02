@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import {
   BookOpen,
   ChevronRight,
@@ -39,25 +40,25 @@ const fileTree = [
     name: "Welcome",
     icon: BookOpen,
     children: [
-      { name: "はじめに", icon: FileText },
-      { name: "クイックスタート", icon: FileText },
+      { id: "1", name: "はじめに", icon: FileText },
+      { id: "2", name: "クイックスタート", icon: FileText },
     ],
   },
   {
     name: "メモ",
     icon: FolderOpen,
     children: [
-      { name: "アイデア", icon: FileText },
-      { name: "TODOリスト", icon: FileText },
-      { name: "議事録", icon: FileText },
+      { id: "2", name: "アイデア", icon: FileText },
+      { id: "3", name: "TODOリスト", icon: FileText },
+      { id: "4", name: "議事録", icon: FileText },
     ],
   },
   {
     name: "プロジェクト",
     icon: FolderOpen,
     children: [
-      { name: "Webアプリ開発", icon: FileText },
-      { name: "ブログ記事", icon: FileText },
+      { id: "5", name: "Webアプリ開発", icon: FileText },
+      { id: "6", name: "ブログ記事", icon: FileText },
     ],
   },
 ]
@@ -152,9 +153,11 @@ export function AppSidebar() {
                     <SidebarMenuSub>
                       {folder.children.map((file) => (
                         <SidebarMenuSubItem key={file.name}>
-                          <SidebarMenuSubButton>
-                            <file.icon className="h-4 w-4" />
-                            <span>{file.name}</span>
+                          <SidebarMenuSubButton asChild>
+                            <Link href={`/notes/${file.id}`}>
+                              <file.icon className="h-4 w-4" />
+                              <span>{file.name}</span>
+                            </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}
