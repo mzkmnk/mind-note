@@ -405,6 +405,130 @@ jobs:
     folderId: 'project'
   },
   {
+    id: "zenn-markdown-test",
+    title: "Zenn Markdown テスト",
+    content: `# Zenn Markdown 機能テスト
+
+Zennの公式markdownパッケージのテストページです。
+
+## 基本的なMarkdown
+
+### 見出し
+- # 見出し1
+- ## 見出し2  
+- ### 見出し3
+
+### リスト
+- 箇条書きリスト
+- [ ] チェックボックス（未完了）
+- [x] チェックボックス（完了）
+
+### 強調とリンク
+**太字**、*イタリック*、~~取り消し線~~
+
+[外部リンク](https://zenn.dev)
+
+## コードブロック
+
+### JavaScript
+\`\`\`javascript
+function hello(name) {
+  console.log(\`Hello, \${name}!\`);
+  return \`こんにちは、\${name}さん！\`;
+}
+
+hello('Zenn');
+\`\`\`
+
+### TypeScript
+\`\`\`typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const user: User = {
+  id: 1,
+  name: 'Taro Yamada',
+  email: 'taro@example.com'
+};
+\`\`\`
+
+### Python
+\`\`\`python
+def calculate_fibonacci(n):
+    if n <= 1:
+        return n
+    return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)
+
+print(calculate_fibonacci(10))
+\`\`\`
+
+## 表（テーブル）
+
+| 項目 | 説明 | 優先度 |
+|------|------|--------|
+| React | フロントエンドライブラリ | 高 |
+| Next.js | Reactフレームワーク | 高 |
+| TypeScript | 型安全な JavaScript | 中 |
+| Tailwind CSS | ユーティリティCSS | 中 |
+
+## 引用
+
+> これはZennの公式markdownパッケージのテストです。
+> 
+> 複数行の引用も正しく表示されるかテストしています。
+
+## 水平線
+
+---
+
+## インラインコード
+
+\`npm install zenn-markdown-html\` でZennのmarkdownパッケージをインストールできます。
+
+変数 \`userName\` や関数 \`getUserInfo()\` などのコードを文中に含めることができます。
+
+## 数式 (KaTeX)
+
+インライン数式: $E = mc^2$
+
+ブロック数式:
+$$
+\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}
+$$
+
+## 脚注
+
+これは脚注のテストです[^1]。
+
+複数の脚注も使用できます[^2]。
+
+[^1]: これは最初の脚注です。
+[^2]: これは2番目の脚注です。
+
+## まとめ
+
+このテストページでZennの公式markdownパッケージが正しく動作していることを確認できます。
+
+- シンタックスハイライト
+- 表の表示
+- 数式レンダリング
+- 脚注機能
+- その他のMarkdown機能
+
+すべて正常に表示されていれば、統合は成功です！
+
+関連: [[マークダウン記法ガイド]] [[Zenn執筆Tips]]
+
+#test #zenn #markdown`,
+    createdAt: new Date('2024-01-26T10:00:00Z'),
+    updatedAt: new Date('2024-01-26T10:00:00Z'),
+    tags: ['test', 'zenn', 'markdown'],
+    folderId: 'memo'
+  },
+  {
     id: "blog-article",
     title: "ブログ記事",
     content: `# ブログ記事アイデアと下書き

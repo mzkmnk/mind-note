@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Zennの公式markdownスタイル */
+@import 'zenn-content-css';
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -34,7 +34,9 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "zenn-content-css": "^0.1.162",
+    "zenn-markdown-html": "^0.1.162"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
