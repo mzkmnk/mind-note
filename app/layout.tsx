@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,10 @@ export default function RootLayout({
           {children}
         </SidebarProvider>
         <SpeedInsights />
+        <Script 
+          src="https://embed.zenn.studio/js/listen-embed-event.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

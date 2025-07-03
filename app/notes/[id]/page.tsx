@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { FileText } from "lucide-react";
 import { findNoteById } from "@/lib/mock-data";
 import { notFound } from "next/navigation";
-import { MarkdownRenderer } from "@/components/note-detail/markdown-renderer";
+import MarkdownRenderer from "@/components/note-detail/markdown-renderer";
 
 interface PageProps {
   params: { id: string };
