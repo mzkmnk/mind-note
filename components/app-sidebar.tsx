@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import Link from "next/link"
 
 const fileTree = [
@@ -83,18 +84,28 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar>
+    <Sidebar className="glass">
       <SidebarHeader>
-        <div className="flex items-center justify-between px-4 py-2">
-          <h2 className="text-lg font-semibold">MindNote</h2>
-          <Button size="icon" variant="ghost">
-            <Plus className="h-4 w-4" />
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg shadow-lg">
+              <BookOpen className="h-4 w-4 text-white" />
+            </div>
+            <h2 className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              MindNote
+            </h2>
+          </div>
+          <Button size="icon" variant="ghost" className="card-hover w-8 h-8 bg-gradient-to-br from-primary/10 to-accent/10 hover:from-primary/20 hover:to-accent/20 border-0">
+            <Plus className="h-4 w-4 text-primary" />
           </Button>
         </div>
-        <div className="px-3 pb-2">
+        <div className="px-3 pb-3">
           <div className="relative">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="ノートを検索..." className="pl-8" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input 
+              placeholder="ノートを検索..." 
+              className="pl-9 glass border-primary/20 focus:border-primary/40 placeholder:text-muted-foreground/70" 
+            />
           </div>
         </div>
       </SidebarHeader>
@@ -102,24 +113,32 @@ export function AppSidebar() {
       <SidebarContent>
         {/* ナビゲーション */}
         <SidebarGroup>
-          <SidebarGroupLabel>ナビゲーション</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground/70 uppercase tracking-wider">
+            ナビゲーション
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Network className="h-4 w-4" />
+                <SidebarMenuButton className="group card-hover rounded-lg">
+                  <div className="flex items-center justify-center w-5 h-5 bg-gradient-to-br from-green-500/10 to-emerald-500/10 group-hover:from-green-500/20 group-hover:to-emerald-500/20 rounded transition-all">
+                    <Network className="h-3 w-3 text-green-600 dark:text-green-400" />
+                  </div>
                   <span>グラフビュー</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Star className="h-4 w-4" />
+                <SidebarMenuButton className="group card-hover rounded-lg">
+                  <div className="flex items-center justify-center w-5 h-5 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 group-hover:from-yellow-500/20 group-hover:to-orange-500/20 rounded transition-all">
+                    <Star className="h-3 w-3 text-yellow-600 dark:text-yellow-400" />
+                  </div>
                   <span>お気に入り</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Trash2 className="h-4 w-4" />
+                <SidebarMenuButton className="group card-hover rounded-lg">
+                  <div className="flex items-center justify-center w-5 h-5 bg-gradient-to-br from-red-500/10 to-pink-500/10 group-hover:from-red-500/20 group-hover:to-pink-500/20 rounded transition-all">
+                    <Trash2 className="h-3 w-3 text-red-600 dark:text-red-400" />
+                  </div>
                   <span>ゴミ箱</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -199,6 +218,12 @@ export function AppSidebar() {
               <Settings className="h-4 w-4" />
               <span>設定</span>
             </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-sm text-muted-foreground">テーマ</span>
+              <ThemeToggle />
+            </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
