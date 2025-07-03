@@ -30,10 +30,12 @@ MindNoteは、Obsidianにインスパイアされたマークダウンメモア�
 
 1. サイドバーの「+」ボタンをクリックして新しいノートを作成
 2. マークダウン形式で自由に記述
-3. [[ノート名]] でノート間をリンク
-4. #タグ でノートを分類
+3. \`[ノート名](/notes/ノート名)\` でノート間をリンク
+4. \`#タグ\` でノートを分類
 
-> 💡 **ヒント**: Ctrl+K（Mac: Cmd+K）でクイック検索を開き、素早くノート間を移動できます。`,
+:::message
+💡 **ヒント**: Ctrl+K（Mac: Cmd+K）でクイック検索を開き、素早くノート間を移動できます。
+:::`,
     createdAt: new Date('2024-01-15T09:00:00Z'),
     updatedAt: new Date('2024-01-15T09:00:00Z'),
     tags: ['重要', 'ガイド'],
@@ -54,9 +56,9 @@ MindNoteをすぐに使い始めるための簡単なガイドです。
 
 ## ステップ2: リンクでノートを繋げる
 
-\`[[ノート名]]\` の形式でノート間をリンクできます。
+\`[ノート名](/notes/ノート名)\` の形式でノート間をリンクできます。
 
-例: [[はじめに]] や [[プロジェクト計画]]
+例: [はじめに](/notes/welcome) や [プロジェクト計画](/notes/project-planning)
 
 ## ステップ3: タグで整理
 
@@ -135,10 +137,12 @@ console.log('Hello, MindNote!');
 - データエクスポート
 
 ## 参考リンク
-- [[技術調査メモ]]
-- [[競合分析]]
+- [技術調査メモ](/notes/tech-research)
+- [競合分析](/notes/competitive-analysis)
 
-#アイデア #プロジェクト #TODO`,
+:::message
+関連タグ: #アイデア #プロジェクト #TODO
+:::`,
     createdAt: new Date('2024-01-20T16:45:00Z'),
     updatedAt: new Date('2024-01-25T11:30:00Z'),
     tags: ['アイデア', 'プロジェクト'],
@@ -190,9 +194,13 @@ console.log('Hello, MindNote!');
 - [ ] 四半期目標の見直し
 - [ ] チーム行事の企画
 
-関連: [[プロジェクト管理]] [[時間管理のコツ]]
+## 関連ノート
+- [プロジェクト管理](/notes/project-management)
+- [時間管理のコツ](/notes/time-management-tips)
 
-#TODO #管理 #プロジェクト`,
+:::message
+関連タグ: #TODO #管理 #プロジェクト
+:::`,
     createdAt: new Date('2024-01-22T08:15:00Z'),
     updatedAt: new Date('2024-01-26T17:45:00Z'),
     tags: ['TODO', '管理'],
@@ -278,9 +286,13 @@ console.log('Hello, MindNote!');
 **日程**: 2024年2月1日（木）14:00-15:00  
 **場所**: 会議室A / オンライン併用
 
-関連: [[プロジェクト計画]] [[Sprint管理]]
+## 関連ドキュメント
+- [プロジェクト計画](/notes/project-planning)
+- [Sprint管理](/notes/sprint-management)
 
-#議事録 #プロジェクト #管理`,
+:::message
+関連タグ: #議事録 #プロジェクト #管理
+:::`,
     createdAt: new Date('2024-01-25T15:30:00Z'),
     updatedAt: new Date('2024-01-25T15:30:00Z'),
     tags: ['議事録', 'プロジェクト'],
@@ -396,13 +408,145 @@ jobs:
 - [React公式ドキュメント](https://react.dev/)
 - [Next.js公式ガイド](https://nextjs.org/docs)
 
-関連: [[技術スタック比較]] [[パフォーマンス最適化]]
+## 関連リソース
+- [技術スタック比較](/notes/tech-stack-comparison)
+- [パフォーマンス最適化](/notes/performance-optimization)
 
-#プロジェクト #開発 #ガイド`,
+:::message
+関連タグ: #プロジェクト #開発 #ガイド
+:::`,
     createdAt: new Date('2024-01-18T13:20:00Z'),
     updatedAt: new Date('2024-01-24T16:15:00Z'),
     tags: ['プロジェクト', '開発'],
     folderId: 'project'
+  },
+  {
+    id: "zenn-markdown-test",
+    title: "Zenn Markdown テスト",
+    content: `# Zenn Markdown 機能テスト
+
+Zennの公式markdownパッケージのテストページです。
+
+## 基本的なMarkdown
+
+### 見出し
+- # 見出し1
+- ## 見出し2  
+- ### 見出し3
+
+### リスト
+- 箇条書きリスト
+- [ ] チェックボックス（未完了）
+- [x] チェックボックス（完了）
+
+### 強調とリンク
+**太字**、*イタリック*、~~取り消し線~~
+
+[外部リンク](https://zenn.dev)
+
+## コードブロック
+
+### JavaScript
+\`\`\`javascript
+function hello(name) {
+  console.log(\`Hello, \${name}!\`);
+  return \`こんにちは、\${name}さん！\`;
+}
+
+hello('Zenn');
+\`\`\`
+
+### TypeScript
+\`\`\`typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const user: User = {
+  id: 1,
+  name: 'Taro Yamada',
+  email: 'taro@example.com'
+};
+\`\`\`
+
+### Python
+\`\`\`python
+def calculate_fibonacci(n):
+    if n <= 1:
+        return n
+    return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)
+
+print(calculate_fibonacci(10))
+\`\`\`
+
+## 表（テーブル）
+
+| 項目 | 説明 | 優先度 |
+|------|------|--------|
+| React | フロントエンドライブラリ | 高 |
+| Next.js | Reactフレームワーク | 高 |
+| TypeScript | 型安全な JavaScript | 中 |
+| Tailwind CSS | ユーティリティCSS | 中 |
+
+## 引用
+
+> これはZennの公式markdownパッケージのテストです。
+> 
+> 複数行の引用も正しく表示されるかテストしています。
+
+## 水平線
+
+---
+
+## インラインコード
+
+\`npm install zenn-markdown-html\` でZennのmarkdownパッケージをインストールできます。
+
+変数 \`userName\` や関数 \`getUserInfo()\` などのコードを文中に含めることができます。
+
+## 数式 (KaTeX)
+
+インライン数式: $E = mc^2$
+
+ブロック数式:
+$$
+\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}
+$$
+
+## 脚注
+
+これは脚注のテストです[^1]。
+
+複数の脚注も使用できます[^2]。
+
+[^1]: これは最初の脚注です。
+[^2]: これは2番目の脚注です。
+
+## まとめ
+
+このテストページでZennの公式markdownパッケージが正しく動作していることを確認できます。
+
+- シンタックスハイライト
+- 表の表示
+- 数式レンダリング
+- 脚注機能
+- その他のMarkdown機能
+
+すべて正常に表示されていれば、統合は成功です！
+
+## 関連ガイド
+- [マークダウン記法ガイド](/notes/markdown-guide)
+- [Zenn執筆Tips](/notes/zenn-writing-tips)
+
+:::message
+関連タグ: #test #zenn #markdown
+:::`,
+    createdAt: new Date('2024-01-26T10:00:00Z'),
+    updatedAt: new Date('2024-01-26T10:00:00Z'),
+    tags: ['test', 'zenn', 'markdown'],
+    folderId: 'memo'
   },
   {
     id: "blog-article",
@@ -501,9 +645,13 @@ React開発でuseEffectを多用することのデメリットと、より良い
 - 実践的なコード例を増やす
 - 図解・画像を効果的に活用
 
-関連: [[技術調査メモ]] [[SNS発信戦略]]
+## 関連記事
+- [技術調査メモ](/notes/tech-research)
+- [SNS発信戦略](/notes/sns-strategy)
 
-#ブログ #執筆 #技術発信`,
+:::message
+関連タグ: #ブログ #執筆 #技術発信
+:::`,
     createdAt: new Date('2024-01-21T19:30:00Z'),
     updatedAt: new Date('2024-01-26T20:15:00Z'),
     tags: ['ブログ', '執筆'],
